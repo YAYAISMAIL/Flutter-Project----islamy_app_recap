@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app_re_cap/style.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "HomeScreen";
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         ),
         Scaffold(
           appBar: AppBar(
-            title: Text("Islami"),
+            title: Text(AppLocalizations.of(context)!.app_title),
           ),
           body: Container(),
           bottomNavigationBar: Theme(
@@ -27,13 +28,16 @@ class HomeScreen extends StatelessWidget {
             child: BottomNavigationBar(items: [
               BottomNavigationBarItem(
                   icon: Image.asset("assets/icon/radio_icon.png"),
-                  label: "radio"),
+                  label: AppLocalizations.of(context)!.but_0),
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icon/sebha.png"), label: "Sebha"),
+                  icon: Image.asset("assets/icon/sebha.png"),
+                  label: AppLocalizations.of(context)!.but_1),
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icon/Hadith.png"), label: "Hadith"),
+                  icon: Image.asset("assets/icon/Hadith.png"),
+                  label: AppLocalizations.of(context)!.but_2),
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icon/quran.png"), label: "Quraan"),
+                  icon: Image.asset("assets/icon/quran.png"),
+                  label: AppLocalizations.of(context)!.but_3),
             ]),
           ),
         )
