@@ -20,6 +20,8 @@ class MyTheme {
   static const Color navBarColorDarkMode = Color(0xffB7935F);
 
   static ThemeData myTheme = ThemeData(
+      //Scaffold
+      scaffoldBackgroundColor: Colors.transparent,
       //AppBar Style
       appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(
@@ -33,6 +35,7 @@ class MyTheme {
 
       //NavBar Style
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.transparent,
         selectedItemColor: selectedItemColorLightMode,
         unselectedItemColor: unSelectedItemColorDarkMode,
         selectedIconTheme: IconThemeData(size: 30),
