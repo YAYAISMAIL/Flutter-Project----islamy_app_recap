@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app_re_cap/Tabs/Hadith/hadith_tab.dart';
+import 'package:islamy_app_re_cap/Tabs/Index/index_tab.dart';
+import 'package:islamy_app_re_cap/Tabs/Radio/radio_tab.dart';
+import 'package:islamy_app_re_cap/Tabs/Sebha/sebha_tab.dart';
+import 'package:islamy_app_re_cap/Tabs/Setting/setting_tab.dart';
 import 'package:islamy_app_re_cap/style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
 
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  //Golabal Variable
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,27 +34,49 @@ class HomeScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.app_title),
           ),
-          body: Container(),
+          body: tabList[index],
           bottomNavigationBar: Theme(
             data: Theme.of(context)
                 .copyWith(canvasColor: MyTheme.navBarColorLightMode),
-            child: BottomNavigationBar(items: [
-              BottomNavigationBarItem(
-                  icon: Image.asset("assets/icon/radio_icon.png"),
-                  label: AppLocalizations.of(context)!.but_0),
-              BottomNavigationBarItem(
-                  icon: Image.asset("assets/icon/sebha.png"),
-                  label: AppLocalizations.of(context)!.but_1),
-              BottomNavigationBarItem(
-                  icon: Image.asset("assets/icon/Hadith.png"),
-                  label: AppLocalizations.of(context)!.but_2),
-              BottomNavigationBarItem(
-                  icon: Image.asset("assets/icon/quran.png"),
-                  label: AppLocalizations.of(context)!.but_3),
-            ]),
+            child: BottomNavigationBar(
+                onTap: (value) {
+                  index = value;
+                  setState(() {});
+                },
+                currentIndex: index,
+                items: [
+                  BottomNavigationBarItem(
+                      icon: const ImageIcon(
+                          AssetImage("assets/icon/radio_icon.png")),
+                      label: AppLocalizations.of(context)!.but_0),
+                  BottomNavigationBarItem(
+                      icon: const ImageIcon(
+                        AssetImage("assets/icon/sebha.png"),
+                      ),
+                      label: AppLocalizations.of(context)!.but_1),
+                  BottomNavigationBarItem(
+                      icon:
+                          const ImageIcon(AssetImage("assets/icon/Hadith.png")),
+                      label: AppLocalizations.of(context)!.but_2),
+                  BottomNavigationBarItem(
+                      icon:
+                          const ImageIcon(AssetImage("assets/icon/quran.png")),
+                      label: AppLocalizations.of(context)!.but_3),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.settings),
+                      label: AppLocalizations.of(context)!.but_4),
+                ]),
           ),
         )
       ],
     );
   }
+
+  List<Widget> tabList = [
+    RadioTab(),
+    SebhaTab(),
+    HadithTab(),
+    IndexTab(),
+    SettingTab()
+  ];
 }

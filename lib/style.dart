@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class MyTheme {
   //Light Mode Color:
   static const Color primaryColorLightMode = Color(0xffB7935F);
+  static const Color borderBtnColorLightMode = Color.fromARGB(255, 91, 72, 46);
   static const Color selectedItemColorLightMode = Color(0xff242424);
   static const Color unSelectedItemColorLightMode = Color(0xffffffff);
   static const Color fontColorLightMode = Color(0xff242424);
   static const Color btnFontColorLightMode = Color(0xffFFFFFF);
+  static const Color frameBgColorLightMode = Color(0x7EB7935F);
   static const Color iconColorLightMode = Color(0xffB7935F);
   static const Color navBarColorLightMode = Color(0xffB7935F);
 
@@ -24,6 +26,8 @@ class MyTheme {
       scaffoldBackgroundColor: Colors.transparent,
       //AppBar Style
       appBarTheme: const AppBarTheme(
+        iconTheme:
+            IconThemeData(color: MyTheme.primaryColorLightMode, size: 40),
         titleTextStyle: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
@@ -35,10 +39,9 @@ class MyTheme {
 
       //NavBar Style
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.transparent,
         selectedItemColor: selectedItemColorLightMode,
         unselectedItemColor: unSelectedItemColorDarkMode,
-        selectedIconTheme: IconThemeData(size: 30),
+        selectedIconTheme: IconThemeData(size: 60),
         unselectedIconTheme: IconThemeData(size: 25),
       ),
 
