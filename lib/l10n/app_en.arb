@@ -9,5 +9,6 @@
       "radio_of_holy_quraan": "Radio of the Holy Quran",
       "sura_name": "Sura Name",
       "sura_number": "Sura Number",
-      "ahadith": "Al-Ahadith"
+      "ahadith": "Al-Ahadith",
+      "sura" : "Sura"
 }
