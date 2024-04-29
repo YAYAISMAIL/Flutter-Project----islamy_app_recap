@@ -10,5 +10,11 @@
       "sura_name": "Sura Name",
       "sura_number": "Sura Number",
       "ahadith": "Al-Ahadith",
-      "sura" : "Sura"
+      "sura": "Sura",
+      "language": "Language",
+      "mode": "Mode",
+      "english": "English",
+      "arabic": "العربية",
+      "lightMode": "Light Mode",
+      "darkMode": "Dark Mode"
 }
