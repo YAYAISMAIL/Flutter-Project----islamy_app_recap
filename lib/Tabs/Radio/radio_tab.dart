@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
 import 'package:islamy_app_re_cap/style.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class RadioTab extends StatefulWidget {
   RadioTab({super.key});
@@ -28,6 +29,7 @@ class _RadioTabState extends State<RadioTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
@@ -36,7 +38,14 @@ class _RadioTabState extends State<RadioTab> {
           Spacer(flex: sp1),
           Image.asset("assets/icon/radio_image.png"),
           Spacer(flex: sp2),
-          Text(AppLocalizations.of(context)!.radio_of_holy_quraan),
+          Text(
+            AppLocalizations.of(context)!.radio_of_holy_quraan,
+            style: TextStyle(
+              color: provider.isDark()
+                  ? MyTheme.fontColorDarkMode
+                  : MyTheme.fontColorLightMode,
+            ),
+          ),
           Spacer(flex: sp3),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
@@ -45,8 +54,12 @@ class _RadioTabState extends State<RadioTab> {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: const FaIcon(FontAwesomeIcons.backward),
-                  color: MyTheme.iconColorLightMode,
+                  icon: provider.appLanguage == 'en'
+                      ? const FaIcon(FontAwesomeIcons.backward)
+                      : const FaIcon(FontAwesomeIcons.forward),
+                  color: provider.isDark()
+                      ? MyTheme.iconColorDarkMode
+                      : MyTheme.iconColorLightMode,
                 ),
                 IconButton(
                   onPressed: () {
@@ -62,12 +75,18 @@ class _RadioTabState extends State<RadioTab> {
                   icon: isPlay
                       ? const FaIcon(FontAwesomeIcons.play)
                       : const FaIcon(FontAwesomeIcons.pause),
-                  color: MyTheme.iconColorLightMode,
+                  color: provider.isDark()
+                      ? MyTheme.iconColorDarkMode
+                      : MyTheme.iconColorLightMode,
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const FaIcon(FontAwesomeIcons.forward),
-                  color: MyTheme.iconColorLightMode,
+                  icon: provider.appLanguage == 'en'
+                      ? const FaIcon(FontAwesomeIcons.forward)
+                      : const FaIcon(FontAwesomeIcons.backward),
+                  color: provider.isDark()
+                      ? MyTheme.iconColorDarkMode
+                      : MyTheme.iconColorLightMode,
                 ),
               ],
             ),

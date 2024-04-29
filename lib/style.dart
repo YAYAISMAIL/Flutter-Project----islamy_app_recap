@@ -14,8 +14,10 @@ class MyTheme {
   static const Color iconColorLightMode = Color(0xffB7935F);
   static const Color navBarColorLightMode = Color(0xffB7935F);
 
+  static const Color bottomSheetBackGroundLightMode = Color(0xffffffff);
+
   //Dark Mode Color:
-  static const Color primaryColorDarkMode = Color(0xff141A2E);
+  static const Color primaryColorDarkMode = Color(0xffFACC1D);
   static const Color borderBtnColorDarkMode = Color.fromARGB(154, 240, 199, 14);
   static const Color selectedItemColorDarkMode = Color(0xfff0c808);
   static const Color unSelectedItemColorDarkMode = Color(0xffffffff);
@@ -27,6 +29,8 @@ class MyTheme {
   static const Color frameBgColorDarkMode = Color.fromRGBO(20, 26, 46, 0.8);
   static const Color iconColorDarkMode = Color(0xffFACC1D);
   static const Color navBarColorDarkMode = Color(0xff141A2E);
+
+  static const Color bottomSheetBackGroundDarkMode = Color(0xff141A2E);
 
   //App LightMode :-
   static ThemeData myTheme = ThemeData(
@@ -62,6 +66,15 @@ class MyTheme {
         titleSmall: TextStyle(fontSize: 25),
         bodyMedium: TextStyle(fontSize: 20),
         bodySmall: TextStyle(fontSize: 12),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: MyTheme.bottomSheetBackGroundLightMode,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+        ),
       ));
 
   //App DarkMode :-
@@ -97,5 +110,14 @@ class MyTheme {
         titleSmall: TextStyle(fontSize: 25),
         bodyMedium: TextStyle(fontSize: 20),
         bodySmall: TextStyle(fontSize: 12),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: MyTheme.bottomSheetBackGroundDarkMode,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+        ),
       ));
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
-
+import 'package:islamy_app_re_cap/style.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -29,9 +29,13 @@ class _ModeButtonSheetState extends State<ModeButtonSheet> {
               provider.changeTheme(ThemeMode.dark);
             },
             child: provider.isDark()
-                ? getSelectedItemWidget(AppLocalizations.of(context)!.darkMode)
+                ? getSelectedItemWidget(
+                    AppLocalizations.of(context)!.darkMode, provider.isDark())
                 : getUnselectedItemWidget(
-                    AppLocalizations.of(context)!.darkMode),
+                    AppLocalizations.of(context)!.darkMode, provider.isDark()),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.015,
           ),
           InkWell(
             onTap: () {
@@ -39,38 +43,48 @@ class _ModeButtonSheetState extends State<ModeButtonSheet> {
               provider.changeTheme(ThemeMode.light);
             },
             child: !(provider.isDark())
-                ? getSelectedItemWidget(AppLocalizations.of(context)!.lightMode)
+                ? getSelectedItemWidget(
+                    AppLocalizations.of(context)!.lightMode, provider.isDark())
                 : getUnselectedItemWidget(
-                    AppLocalizations.of(context)!.lightMode),
+                    AppLocalizations.of(context)!.lightMode, provider.isDark()),
           ),
         ],
       ),
     );
   }
 
-  Widget getSelectedItemWidget(String text) {
+  Widget getSelectedItemWidget(String text, bool isDark) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           text,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: isDark
+                  ? MyTheme.primaryColorDarkMode
+                  : MyTheme.primaryColorLightMode),
         ),
-        const Icon(
+        Icon(
           Icons.check,
           size: 30,
+          color: isDark
+              ? MyTheme.primaryColorDarkMode
+              : MyTheme.primaryColorLightMode,
         ),
       ],
     );
   }
 
-  Widget getUnselectedItemWidget(String text) {
+  Widget getUnselectedItemWidget(String text, bool isDark) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           text,
-          style: Theme.of(context).textTheme.titleSmall,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: isDark
+                  ? MyTheme.primaryColorDarkMode
+                  : MyTheme.primaryColorLightMode),
         ),
       ],
     );

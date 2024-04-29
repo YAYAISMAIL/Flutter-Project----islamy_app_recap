@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
 import 'package:islamy_app_re_cap/style.dart';
 import 'dart:math' as math;
+import 'package:provider/provider.dart';
 
 class SebhaTab extends StatefulWidget {
   SebhaTab({super.key});
@@ -30,6 +32,8 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
@@ -61,7 +65,9 @@ class _SebhaTabState extends State<SebhaTab> {
                     ),
                     height: MediaQuery.of(context).size.height * 0.1,
                     width: MediaQuery.of(context).size.width * 0.2,
-                    child: Image.asset("assets/img/head_of_seb7a.png"),
+                    child: provider.isDark()
+                        ? Image.asset("assets/icon/dark_head_of_seb7a.png")
+                        : Image.asset("assets/img/head_of_seb7a.png"),
                   ),
                   Container(
                     margin: EdgeInsets.only(
@@ -69,7 +75,9 @@ class _SebhaTabState extends State<SebhaTab> {
                     ),
                     child: Transform.rotate(
                       angle: roationAngle,
-                      child: Image.asset("assets/img/body_of_seb7a.png"),
+                      child: provider.isDark()
+                          ? Image.asset("assets/icon/dark_body_of_seb7a.png")
+                          : Image.asset("assets/img/body_of_seb7a.png"),
                     ),
                   ),
                 ],
@@ -77,21 +85,27 @@ class _SebhaTabState extends State<SebhaTab> {
             ),
           ),
           Spacer(flex: sp2),
-          Text(AppLocalizations.of(context)!.tasbeh_count),
+          Text(AppLocalizations.of(context)!.tasbeh_count,
+              style: TextStyle(
+                  color: provider.isDark()
+                      ? MyTheme.fontColorDarkMode
+                      : MyTheme.fontColorLightMode)),
           Spacer(flex: sp3),
           Container(
             decoration: BoxDecoration(
-                color: MyTheme.frameBgColorLightMode,
+                color: provider.isDark()
+                    ? MyTheme.frameBgColorDarkMode
+                    : MyTheme.frameBgColorLightMode,
                 borderRadius: BorderRadius.circular(25)),
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.height * 0.1,
             child: Center(
               child: Text(
                 "$counter",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: MyTheme.fontColorLightMode),
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: provider.isDark()
+                        ? MyTheme.fontColorDarkMode
+                        : MyTheme.fontColorLightMode),
               ),
             ),
           ),
@@ -102,16 +116,21 @@ class _SebhaTabState extends State<SebhaTab> {
               horizontal: MediaQuery.of(context).size.width * 0.05,
             ),
             decoration: BoxDecoration(
-              color: MyTheme.primaryColorLightMode,
+              color: provider.isDark()
+                  ? MyTheme.primaryColorDarkMode
+                  : MyTheme.primaryColorLightMode,
               borderRadius: BorderRadius.circular(50),
-              border: Border.all(color: MyTheme.borderBtnColorLightMode),
+              border: Border.all(
+                  color: provider.isDark()
+                      ? MyTheme.borderBtnColorDarkMode
+                      : MyTheme.borderBtnColorLightMode),
             ),
             child: Text(
               tasbehList[listIndex],
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: MyTheme.btnFontColorLightMode),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: provider.isDark()
+                      ? MyTheme.btnFontColorDarkMode
+                      : MyTheme.btnFontColorLightMode),
             ),
           ),
           Spacer(flex: sp5),

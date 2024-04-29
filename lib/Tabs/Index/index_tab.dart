@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
 import 'package:islamy_app_re_cap/Tabs/Index/sura_details_window.dart';
 import 'package:islamy_app_re_cap/style.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IndexTab extends StatelessWidget {
   IndexTab({super.key});
@@ -125,23 +128,36 @@ class IndexTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
+
     return Column(
       children: [
         Center(child: Image.asset('assets/icon/quran_image.png')),
         SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-        const Divider(
+        Divider(
           height: 0,
-          color: MyTheme.primaryColorLightMode,
+          color: provider.isDark()
+              ? MyTheme.primaryColorDarkMode
+              : MyTheme.primaryColorLightMode,
           thickness: 3,
         ),
         Container(
-            margin: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.0075),
-            child:
-                Text("data", style: Theme.of(context).textTheme.titleMedium)),
-        const Divider(
+          margin: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.0075),
+          child: Text(
+            AppLocalizations.of(context)!.index,
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: provider.isDark()
+                      ? MyTheme.fontColorDarkMode
+                      : MyTheme.fontColorLightMode,
+                ),
+          ),
+        ),
+        Divider(
           height: 0,
-          color: MyTheme.primaryColorLightMode,
+          color: provider.isDark()
+              ? MyTheme.primaryColorDarkMode
+              : MyTheme.primaryColorLightMode,
           thickness: 3,
         ),
         Expanded(
@@ -161,11 +177,19 @@ class IndexTab extends StatelessWidget {
                   children: [
                     Text(
                       suraList[index],
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: provider.isDark()
+                                ? MyTheme.fontColorDarkMode
+                                : MyTheme.fontColorLightMode,
+                          ),
                     ),
                     Text(
                       "$index",
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: provider.isDark()
+                                ? MyTheme.fontColorDarkMode
+                                : MyTheme.fontColorLightMode,
+                          ),
                     ),
                   ],
                 ),
@@ -174,9 +198,11 @@ class IndexTab extends StatelessWidget {
           },
           itemCount: suraList.length,
           separatorBuilder: (context, index) {
-            return const Divider(
+            return Divider(
               height: 0,
-              color: MyTheme.primaryColorLightMode,
+              color: provider.isDark()
+                  ? MyTheme.primaryColorDarkMode
+                  : MyTheme.primaryColorLightMode,
               thickness: 2,
             );
           },

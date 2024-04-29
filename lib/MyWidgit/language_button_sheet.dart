@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
+import 'package:islamy_app_re_cap/style.dart';
 import 'package:provider/provider.dart';
 
 class LanguageButtonSheet extends StatefulWidget {
@@ -27,9 +28,10 @@ class _LanguageButtonSheetState extends State<LanguageButtonSheet> {
               provider.changeLanguage('en');
             },
             child: provider.appLanguage == 'en'
-                ? getSelectedItemWidget(AppLocalizations.of(context)!.english)
+                ? getSelectedItemWidget(
+                    AppLocalizations.of(context)!.english, provider.isDark())
                 : getUnselectedItemWidget(
-                    AppLocalizations.of(context)!.english),
+                    AppLocalizations.of(context)!.english, provider.isDark()),
           ),
           InkWell(
             onTap: () {
@@ -37,37 +39,48 @@ class _LanguageButtonSheetState extends State<LanguageButtonSheet> {
               provider.changeLanguage('ar');
             },
             child: provider.appLanguage == 'ar'
-                ? getSelectedItemWidget(AppLocalizations.of(context)!.arabic)
-                : getUnselectedItemWidget(AppLocalizations.of(context)!.arabic),
+                ? getSelectedItemWidget(
+                    AppLocalizations.of(context)!.arabic, provider.isDark())
+                : getUnselectedItemWidget(
+                    AppLocalizations.of(context)!.arabic, provider.isDark()),
           ),
         ],
       ),
     );
   }
 
-  Widget getSelectedItemWidget(selection1) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          selection1,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const Icon(
-          Icons.check,
-          size: 30,
-        ),
-      ],
-    );
-  }
-
-  Widget getUnselectedItemWidget(String text) {
+  Widget getSelectedItemWidget(String text, bool isDark) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           text,
-          style: Theme.of(context).textTheme.titleSmall,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: isDark
+                  ? MyTheme.primaryColorDarkMode
+                  : MyTheme.primaryColorLightMode),
+        ),
+        Icon(
+          Icons.check,
+          size: 30,
+          color: isDark
+              ? MyTheme.primaryColorDarkMode
+              : MyTheme.primaryColorLightMode,
+        ),
+      ],
+    );
+  }
+
+  Widget getUnselectedItemWidget(String text, bool isDark) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          text,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: isDark
+                  ? MyTheme.primaryColorDarkMode
+                  : MyTheme.primaryColorLightMode),
         ),
       ],
     );

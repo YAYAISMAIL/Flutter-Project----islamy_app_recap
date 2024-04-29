@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
 import 'package:islamy_app_re_cap/Tabs/Hadith/hadeah_details_window.dart';
 import 'package:islamy_app_re_cap/style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HadithTab extends StatelessWidget {
   HadithTab({super.key});
@@ -13,6 +15,8 @@ class HadithTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
@@ -21,8 +25,10 @@ class HadithTab extends StatelessWidget {
           //Spacer(flex: sp1),
           Image.asset("assets/icon/ahadeth_image.png"),
           //Spacer(flex: sp2),
-          const Divider(
-            color: MyTheme.primaryColorLightMode,
+          Divider(
+            color: provider.isDark()
+                ? MyTheme.primaryColorDarkMode
+                : MyTheme.primaryColorLightMode,
             thickness: 3,
           ),
           Row(
@@ -30,12 +36,18 @@ class HadithTab extends StatelessWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.ahadith,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: provider.isDark()
+                          ? MyTheme.fontColorDarkMode
+                          : MyTheme.fontColorLightMode,
+                    ),
               ),
             ],
           ),
-          const Divider(
-            color: MyTheme.primaryColorLightMode,
+          Divider(
+            color: provider.isDark()
+                ? MyTheme.primaryColorDarkMode
+                : MyTheme.primaryColorLightMode,
             thickness: 3,
           ),
           Expanded(
@@ -52,13 +64,19 @@ class HadithTab extends StatelessWidget {
                   },
                   child: Text(
                     "data $index",
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: provider.isDark()
+                              ? MyTheme.fontColorDarkMode
+                              : MyTheme.fontColorLightMode,
+                        ),
                   ),
                 ));
               },
               separatorBuilder: (context, index) {
-                return const Divider(
-                  color: MyTheme.primaryColorLightMode,
+                return Divider(
+                  color: provider.isDark()
+                      ? MyTheme.primaryColorDarkMode
+                      : MyTheme.primaryColorLightMode,
                   thickness: 3,
                 );
               },

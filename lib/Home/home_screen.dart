@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
 import 'package:islamy_app_re_cap/Tabs/Hadith/hadith_tab.dart';
 import 'package:islamy_app_re_cap/Tabs/Index/index_tab.dart';
 import 'package:islamy_app_re_cap/Tabs/Radio/radio_tab.dart';
@@ -6,6 +7,7 @@ import 'package:islamy_app_re_cap/Tabs/Sebha/sebha_tab.dart';
 import 'package:islamy_app_re_cap/Tabs/Setting/setting_tab.dart';
 import 'package:islamy_app_re_cap/style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -22,22 +24,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Stack(
       children: [
-        Image.asset(
-          "assets/img/background_Light Mode.png",
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.cover,
-        ),
+        provider.isDark()
+            ? Image.asset(
+                "assets/img/background_image_DarkMode.png",
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              )
+            : Image.asset(
+                "assets/img/background_Light Mode.png",
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),
         Scaffold(
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.app_title),
           ),
           body: tabList[index],
           bottomNavigationBar: Theme(
-            data: Theme.of(context)
-                .copyWith(canvasColor: MyTheme.navBarColorLightMode),
+            data: Theme.of(context).copyWith(
+                canvasColor: provider.isDark()
+                    ? MyTheme.navBarColorDarkMode
+                    : MyTheme.navBarColorLightMode),
             child: BottomNavigationBar(
                 onTap: (value) {
                   index = value;
