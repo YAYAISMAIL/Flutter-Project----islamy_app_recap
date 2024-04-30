@@ -64,6 +64,8 @@ flutter:
   assets:
     - assets/icon/
     - assets/img/
+    - assets/file/Quran/
+    - assets/file/Ahadith/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

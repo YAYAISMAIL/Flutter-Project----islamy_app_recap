@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:islamy_app_re_cap/Tabs/Index/index_tab.dart';
 import 'package:islamy_app_re_cap/style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SuraDetailsWindow extends StatelessWidget {
+class SuraDetailsWindow extends StatefulWidget {
   static const String routeName = "SuraDetailsWindow_Screen";
-  const SuraDetailsWindow({super.key});
+  SuraDetailsWindow({super.key});
+
+  @override
+  State<SuraDetailsWindow> createState() => _SuraDetailsWindowState();
+}
+
+class _SuraDetailsWindowState extends State<SuraDetailsWindow> {
+  //Global Variable:
+  List<String> verses = [];
 
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)!.settings.arguments as SuraDitails;
+
+    loadFile(args.suraNumber);
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -45,16 +56,15 @@ class SuraDetailsWindow extends StatelessWidget {
                     color: MyTheme.primaryColorLightMode,
                     thickness: 3,
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width * 0.025,
-                          vertical: MediaQuery.of(context).size.width * 0.025,
-                        ),
-                        child: Text("Deatails...."),
-                      ),
-                    ],
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) => Center(
+                          child: Text(
+                        verses[index],
+                        textAlign: TextAlign.center,
+                      )),
+                      itemCount: verses.length,
+                    ),
                   )
                 ],
               ),
@@ -63,5 +73,13 @@ class SuraDetailsWindow extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void loadFile(int index) async {
+    String content =
+        await rootBundle.loadString("assets/file/Quran/$index.txt");
+    List<String> lines = content.split('\n');
+    verses = lines;
+    setState(() {});
   }
 }
