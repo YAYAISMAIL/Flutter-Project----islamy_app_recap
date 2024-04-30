@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:islamy_app_re_cap/Provider/app_config_provider.dart';
 import 'package:islamy_app_re_cap/Tabs/Index/sura_details_window.dart';
 import 'package:islamy_app_re_cap/style.dart';
@@ -211,8 +210,6 @@ class IndexTab extends StatelessWidget {
       ],
     );
   }
-
-  
 }
 
 class SuraDitails {

@@ -29,17 +29,27 @@ class _HadeathDetailsWindowState extends State<HadeathDetailsWindow> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Image.asset(
-          "assets/img/background_Light Mode.png",
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.cover,
-        ),
+        provider.isDark()
+            ? Image.asset(
+                "assets/img/background_image_DarkMode.png",
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              )
+            : Image.asset(
+                "assets/img/background_Light Mode.png",
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),
         Scaffold(
           appBar: AppBar(
             title: Text(
               AppLocalizations.of(context)!.app_title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: provider.isDark()
+                      ? MyTheme.fontColorDarkMode
+                      : MyTheme.fontColorLightMode),
             ),
           ),
           body: verses.isEmpty
@@ -58,14 +68,25 @@ class _HadeathDetailsWindowState extends State<HadeathDetailsWindow> {
                     height: MediaQuery.of(context).size.height * 0.75,
                     width: MediaQuery.of(context).size.width * 0.85,
                     decoration: BoxDecoration(
-                        color: const Color.fromRGBO(255, 255, 255, 0.65),
+                        color: provider.isDark()
+                            ? const Color.fromRGBO(1, 16, 62, 0.25)
+                            : const Color.fromRGBO(255, 255, 255, 0.65),
                         borderRadius: BorderRadius.circular(25)),
                     child: Column(
                       children: [
-                        Text("Name of Hadeah",
-                            style: Theme.of(context).textTheme.titleMedium),
-                        const Divider(
-                          color: MyTheme.primaryColorLightMode,
+                        Text(verses[0],
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: provider.isDark()
+                                      ? MyTheme.primaryColorDarkMode
+                                      : MyTheme.fontColorLightMode,
+                                )),
+                        Divider(
+                          color: provider.isDark()
+                              ? MyTheme.primaryColorDarkMode
+                              : MyTheme.primaryColorLightMode,
                           thickness: 3,
                         ),
                         Expanded(
@@ -87,6 +108,11 @@ class _HadeathDetailsWindowState extends State<HadeathDetailsWindow> {
                                     child: Text(
                                       verses[index],
                                       textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: provider.isDark()
+                                            ? MyTheme.primaryColorDarkMode
+                                            : MyTheme.fontColorLightMode,
+                                      ),
                                     ),
                                   )),
                                 ),
