@@ -19,8 +19,10 @@ class _SuraDetailsWindowState extends State<SuraDetailsWindow> {
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)!.settings.arguments as SuraDitails;
+    if (verses.isEmpty) {
+      loadFile(args.suraNumber);
+    }
 
-    loadFile(args.suraNumber);
     return Stack(
       alignment: Alignment.center,
       children: [
