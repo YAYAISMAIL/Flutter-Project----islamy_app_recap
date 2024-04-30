@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:islamy_app_re_cap/Tabs/Hadith/hadith_tab.dart';
 import 'package:islamy_app_re_cap/style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HadeathDetailsWindow extends StatelessWidget {
+class HadeathDetailsWindow extends StatefulWidget {
   static const String routeName = "HadeathDetailsWindow_Screen";
   const HadeathDetailsWindow({super.key});
 
   @override
+  State<HadeathDetailsWindow> createState() => _HadeathDetailsWindowState();
+}
+
+class _HadeathDetailsWindowState extends State<HadeathDetailsWindow> {
+  //Global Variable:-
+  List<String> verses = [];
+
+  @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)?.settings.arguments as HadeathDitails;
+    fileLoad(args.hadithNumber);
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -43,16 +56,30 @@ class HadeathDetailsWindow extends StatelessWidget {
                     color: MyTheme.primaryColorLightMode,
                     thickness: 3,
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width * 0.025,
-                          vertical: MediaQuery.of(context).size.width * 0.025,
-                        ),
-                        child: Text("Deatails...."),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.025,
+                              vertical:
+                                  MediaQuery.of(context).size.width * 0.025,
+                            ),
+                            child: Center(
+                                child: Flexible(
+                              child: Text(
+                                verses[index],
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                          ),
+                        ],
                       ),
-                    ],
+                      itemCount: verses.length,
+                    ),
                   )
                 ],
               ),
@@ -61,5 +88,13 @@ class HadeathDetailsWindow extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void fileLoad(int Index) async {
+    String content =
+        await rootBundle.loadString("assets/file/Ahadith/h${Index + 1}.txt");
+    List<String> lines = content.split('\n');
+    verses = lines;
+    setState(() {});
   }
 }
